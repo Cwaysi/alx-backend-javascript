@@ -1,25 +1,13 @@
-export default function createIteratorObject(report) {
-  const departments = Object.values(report);
+export default function iterateThroughObject(reportWithIterator) {
+  let employees = '';
 
+  for (const [i, value] of reportWithIterator.entries()) {
+    if (i !== reportWithIterator.length - 1) {
+      employees += `${value} | `;
+    } else {
+      employees += value;
+    }
+  }
 
-  const allEmployees = departments.flatMap((dept) => Object.values(dept));
-
-  let index = 0;
-
-
-  const iterator = {
-    next() {
-      if (index < allEmployees.length) {
-        return { value: allEmployees[index++], done: false };
-      } else {
-        return { done: true };
-      }
-    },
-  };
-  
-  iterator[Symbol.iterator] = function () {
-    return this;
-  };
-
-  return iterator;
+  return employees;
 }
